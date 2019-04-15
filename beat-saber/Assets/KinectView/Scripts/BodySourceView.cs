@@ -5,6 +5,10 @@ using Kinect = Windows.Kinect;
 
 public class BodySourceView : MonoBehaviour 
 {
+    public OVRCameraRig cam_head;
+    public GameObject saber_left;
+    public GameObject saber_right;
+
     public Material BoneMaterial;
     public GameObject BodySourceManager;
     
@@ -114,6 +118,11 @@ public class BodySourceView : MonoBehaviour
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             GameObject jointObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+            if (jt == Kinect.JointType.Head)
+            {
+                jointObj.SetActive(false);
+            }
             
             LineRenderer lr = jointObj.AddComponent<LineRenderer>();
             lr.SetVertexCount(2);
@@ -144,18 +153,50 @@ public class BodySourceView : MonoBehaviour
             
             Transform jointObj = bodyObject.transform.Find(jt.ToString());
             jointObj.localPosition = GetVector3FromJoint(sourceJoint);
-            
-            LineRenderer lr = jointObj.GetComponent<LineRenderer>();
-            if(targetJoint.HasValue)
+            Transform tem = jointObj;
+            Vector3 aux = new Vector3(tem.transform.position.x * (-2), 0, 0);
+            tem.transform.position = tem.transform.position + aux;
+            jointObj.localPosition = tem.transform.position;
+
+
+            ///moviendo la camara con el join.head
+            if (jt == Kinect.JointType.Head)
             {
-                lr.SetPosition(0, jointObj.localPosition);
-                lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
-                lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+ 
+                //cam_head.transform.position = tem.transform.position;
+                cam_head.transform.position = jointObj.localPosition;
+                
             }
-            else
+
+            //moviendo saber izquierdo
+            if (jt == Kinect.JointType.HandTipLeft)
             {
-                lr.enabled = false;
+
+                saber_left.transform.position = jointObj.localPosition;
+                //jointObj.localRotation= saber_left.transform.localRotation;
             }
+
+            //moviendo saber derecho
+            if (jt == Kinect.JointType.HandTipRight)
+            {
+
+                saber_right.transform.position = jointObj.localPosition;
+            }
+
+
+
+            ///para dibujar los huesos 
+            //LineRenderer lr = jointObj.GetComponent<LineRenderer>();
+            //if(targetJoint.HasValue)
+            //{
+            //    lr.SetPosition(0, jointObj.localPosition);
+            //    lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
+            //    //lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+            //}
+            //else
+            //{
+            //    lr.enabled = false;
+            //}
         }
     }
     
@@ -176,6 +217,6 @@ public class BodySourceView : MonoBehaviour
     
     private static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
+        return new Vector3(joint.Position.X * 5, joint.Position.Y * 5, joint.Position.Z * 10);
     }
 }
