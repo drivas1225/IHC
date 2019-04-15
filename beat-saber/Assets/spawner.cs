@@ -6,7 +6,7 @@ public class spawner : MonoBehaviour
 {
     public GameObject[] cubes;
     public Transform[] points;
-    public float beat = 60 / 130 * 2;
+    public float beat = (60 / 130) * 2;
     private float timer;
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( timer > beat)
+        if(timer > beat)
         {
             GameObject cube = Instantiate(cubes[Random.Range(0, 2)], points[Random.Range(0,4)]);
             cube.transform.localPosition = Vector3.zero;
