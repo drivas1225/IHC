@@ -27,3 +27,6 @@ Con agradecimientos a  [CTCaer](https://github.com/ctcaer/jc_toolkit/), [dekuNuk
 Usa C# glue code y [HIDAPI](https://github.com/signal11/hidapi) binarios de  [Unity-Wiimote](https://github.com/Flafla2/Unity-Wiimote)
 
 El método GetVector (intento de implementación de fusión de sensores) aún no es confiable! Habilitar en JoyconManager bajo su propio riesgo. El código de fusión del sensor está en Joycon.ProcessIMU. Siéntase libre de enviar solicitudes de extracción; Código de fusión del sensor basado en [esta guia](starlino.com/imu_guide.html).
+
+En el siguiente video detallamos las características de interacción del juego:
+[![Alt text for your video]](https://youtu.be/aSj_CHPQWro)
