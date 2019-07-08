@@ -28,5 +28,7 @@ Usa C# glue code y [HIDAPI](https://github.com/signal11/hidapi) binarios de  [Un
 
 El método GetVector (intento de implementación de fusión de sensores) aún no es confiable! Habilitar en JoyconManager bajo su propio riesgo. El código de fusión del sensor está en Joycon.ProcessIMU. Siéntase libre de enviar solicitudes de extracción; Código de fusión del sensor basado en [esta guia](starlino.com/imu_guide.html).
 
+Debido a la cantidad de información del esqueleto del kinect, el tamaño del buffer que provee el network manager de unity no es suficiente por lo cual se tendria que dividir la información del kinect para que entre en dos buffers. Para hacer todo esto nos guiamos dle siguiente link: https://forum.unity.com/threads/synchronizing-an-entire-skeleton.355636/
+
 En el siguiente video detallamos las características de interacción del juego:
 [VIDEO](https://youtu.be/aSj_CHPQWro)
